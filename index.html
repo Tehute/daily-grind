@@ -60,11 +60,7 @@
     <main>
 		 <header><h3 class="slogan">You drink our coffee, we make large bucks!</h3></header>
         <h3> A javascript example by Tehut Haile</h3>
-		 <p>
-    		 <img src="images/pumpkin-spice-latte.jpg" alt="Our Pumpkin Spice Latte tastes great on a Fall Day!" id="coffee" />
-            <strong class="feature">Monday's Coffee Special:</strong> Monday's daily coffee special is <strong class="feature">Pumpkin Spice Latte</strong>, which makes us wish it was always Fall, as this is one of our top sellers!</p>
-       <p>
-
+		<div id="mydiv"> </div>
 		This page uses HTML/CSS & JavaScript to create a single page that 
 		rotates unique colors and content for each weekday (Sunday to Saturday) 
 		into the page. The content includes: 
@@ -77,7 +73,15 @@
 		   </ul>
 	   </p>
 		
-
+	   <h3>Coffee Specials for Each Day of the Week</h3>
+	   <p><a href="?day=0">Sunday</a></p>
+	   <p><a href="?day=1">Monday</a></p>
+	   <p><a href="?day=2">Tuesday</a></p>
+	   <p><a href="?day=3">Wednesday</a></p>
+	   <p><a href="?day=4">Thursday</a></p>
+	   <p><a href="?day=5">Friday</a></p>
+	   <p><a href="?day=6">Saturday</a></p>
+	   
      </main>
     <footer>
       <small>&copy; 2014-2015, All Rights Reserved ~
@@ -87,12 +91,130 @@
     </footer>
     <!-- END Footer -->
 <script>
-	const car = {type: "fiat", model: "500", color: "white"};
-	//console.log(car);
+		function coffeeTemplate(coffee){
+			let myReturn = `<p>
+				<img src="${coffee.pic}" alt="${coffee.alt}" id="coffee" />
+            ${coffee.day} daily Coffee Special is <strong class="feature">${coffee.name} </strong>,
+			${coffee.desc}!</p>`;	
+	
 
-	let mySentance = "my car is a" + car.type;
+			return myReturn;
+		}
 
-	alert(mySentence);
+		let myDate = new Date();
+		
+		let today = myDate.getDay();
+
+		let coffee = "";
+
+		const queryString = window.location.search;
+		const urlParams = new URLSearchParams(queryString);
+
+		if(urlParams.has('day')){
+			today = urlParams.get('day');
+			today = parseInt(today);
+		}
+
+
+		//console.log(urlParams;
+
+
+		switch(today){
+
+			case 0:
+
+				coffee = {
+					name: "Cold Brew",
+					pic: "images/cold-brew.jpg",
+					alt: "Cold Brew coffee",
+					day: "Sunday",
+					color:"brown",
+					desc: `Give me the Cold Brew`,
+				};
+				break;
+
+			case 1:
+
+				coffee = {
+					name: "Frappaccino",
+					pic: "images/frappaccino.jpg",
+					alt: "Frappaccino coffee",
+					day: "Monday",
+					color:"white",
+					desc: `Give me the frappaccino`,
+				};
+				break;
+
+			case 2:
+
+				coffee = {
+					name: "Drip",
+					pic: "images/drip.jpg",
+					alt: "Drip coffee",
+					day: "Tuesday",
+					color:"coral",
+					desc: `Give me the drip`,
+				};
+			break;
+
+			case 3:
+
+				coffee = {
+					name: "Bubble Tea",
+					pic: "images/bubble-tea.jpg",
+					alt: "Bubble Tea",
+					day: "Wednesday",
+					color:"purple",
+					desc: `I love bubble tea`,
+				};
+			break;
+
+			case 4:
+
+				coffee = {
+					name: "Pumpkin spice",
+					pic: "images/pumpkin-spice-latte.jpg",
+					alt: "Pumpkin spice",
+					day: "Thursday",
+					color:"orange",
+					desc: `I love Pumpkin spice`,
+				};
+				break;
+
+			case 5:
+		
+		
+				coffee = {
+					name: "caramel latte",
+					pic: "images/caramel-latte.jpg",
+					alt: "caramel latte",
+					day: "Friday",
+					color:"carmel",
+					desc: `I Love me some caramel latte`,
+				};
+			break; 
+
+			case 6:
+		
+				coffee = {
+					name: "mocha",
+					pic: "images/mocha.jpg",
+					alt: "mocha",
+					day: "Saturday",
+					color:"brown",
+					desc: `I Love me some mocha`,
+				};
+			break; 
+		}
+		
+
+
+	document.getElementById('mydiv').innerHTML = coffeeTemplate(coffee);
+	document.querySelector('.feature').style.color = coffee.color;
+	document.querySelector('html').style.backgroundColor = coffee.color;
+
+	console.log(coffee);
+
 </script>
 	
 </body>
